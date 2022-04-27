@@ -9,7 +9,7 @@
         force: yes
 
     - name: Prune unused networks
-      community.docker.docker_prune:
+      docker_prune:
         networks: yes
 
     - name: Create a network
