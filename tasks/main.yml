@@ -1,6 +1,13 @@
 ---
 
 ####start containers
+
+    - name: Delete a network, disconnecting all containers
+      docker_network:
+        name: "{{ docker_network_name }}"
+        state: absent
+        force: yes
+
     - name: Create a network
       docker_network:
         name: "{{ docker_network_name }}"
@@ -10,18 +17,17 @@
       set_fact:
         replicas:
           - port: "{{ port_1 }}"
-            container: "web_1"
+            container: "{{ service_1 }}"
           - port: "{{ port_2 }}"
-            container: "web_2"
+            container: "{{ service_2 }}"
           - port: "{{ port_3 }}"
-            container: "web_3"
+            container: "{{ service_3 }}"
 
     - name: run containers
       docker_container:
         name: "{{ item.container }}"
         state: started
         image: "{{ docker_image }}"
-        command: "python3 -m flask run --host=0.0.0.0"
         pull: true
         recreate: yes
         expose:
