@@ -8,6 +8,10 @@
         state: absent
         force: yes
 
+    - name: Prune unused networks
+      community.docker.docker_prune:
+        networks: yes
+
     - name: Create a network
       docker_network:
         name: "{{ docker_network_name }}"
