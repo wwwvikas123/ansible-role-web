@@ -8,9 +8,10 @@
         state: absent
         force: yes
 
-    - name: Prune unused networks
+    - name: Prune unused networks and imgs
       docker_prune:
         networks: yes
+        images: yes
 
     - name: Create a network
       docker_network:
